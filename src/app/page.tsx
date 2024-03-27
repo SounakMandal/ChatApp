@@ -1,6 +1,6 @@
 import SideNavigator from '@/components/Navigator/SideNavigator';
 import Workspace from '@/components/Workspace/Workspace';
-import { cn } from '@/lib/utils';
+import { userData } from './data';
 
 export default function Home() {
   const conversations = [
@@ -14,9 +14,9 @@ export default function Home() {
     { human: "What steps can be taken to mitigate the human impact", assistant: "To mitigate the human impact ..." }
   ];
   return (
-    <body className={ cn("flex flex-row h-screen") }>
-      <div className={ cn("basis-1/4 bg-slate-900 p-3") }><SideNavigator headings={ conversations } /></div>
-      <div className={ cn("basis-3/4 bg-slate-800") }><Workspace chats={ chat } /></div>
-    </body>
+    <main className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+      <div className="hidden border-r bg-muted/40 md:block"><SideNavigator headings={ conversations } /></div>
+      <div className="flex flex-col"><Workspace selectedUser={ userData[0] } messages={ userData[1].messages } isMobile={ false } /></div>
+    </main>
   );
 }
