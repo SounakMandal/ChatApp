@@ -1,17 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { MoreHorizontal, SquarePen } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+
+import { Message } from "@/app/data";
+import { buttonVariants } from "@ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
-} from "@/components/ui/tooltip";
-import { Avatar, AvatarImage } from "./ui/avatar";
-import { Message } from "@/app/data";
+} from "@ui/tooltip";
+import { cn } from "@/lib/utils";
+import { Avatar, AvatarImage } from "@ui/avatar";
+
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -22,10 +24,9 @@ interface SidebarProps {
     variant: "grey" | "ghost";
   }[];
   onClick?: () => void;
-  isMobile: boolean;
 }
 
-export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
+export function Sidebar({ links, isCollapsed }: SidebarProps) {
   return (
     <div
       data-collapsed={ isCollapsed }
@@ -70,7 +71,7 @@ export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
                   <Link
                     href="#"
                     className={ cn(
-                      buttonVariants({ variant: link.variant, size: "icon" }),
+                      buttonVariants({ variant: "link", size: "icon" }),
                       "h-11 w-11 md:h-16 md:w-16",
                       link.variant === "grey" &&
                       "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
@@ -101,7 +102,7 @@ export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
               key={ index }
               href="#"
               className={ cn(
-                buttonVariants({ variant: link.variant, size: "xl" }),
+                buttonVariants({ variant: "link", size: "lg" }),
                 link.variant === "grey" &&
                 "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white shrink",
                 "justify-start gap-4"

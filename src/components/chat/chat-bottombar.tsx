@@ -1,22 +1,25 @@
+import React, { useRef, useState } from "react";
+
+import { buttonVariants } from "@ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@ui/popover";
+import { Textarea } from "@ui/textarea";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   FileImage,
   Mic,
   Paperclip,
   PlusCircle,
   SendHorizontal,
-  Smile,
   ThumbsUp,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
-import { buttonVariants } from "../ui/button";
-import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
+
 import { Message, loggedInUserData } from "@/app/data";
-import { Textarea } from "../ui/textarea";
-import { EmojiPicker } from "./emoji-picker";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { cn } from "@/lib/utils";
 import Show from '@/utils/Show';
+
+import { EmojiPicker } from "./emoji-picker";
+
 
 interface ChatBottombarProps {
   sendMessage: (newMessage: Message) => void;

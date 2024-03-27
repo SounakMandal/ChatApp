@@ -1,15 +1,17 @@
 "use client";
 
-import { userData } from "@/app/data";
 import React, { useEffect, useState } from "react";
+
+import { userData } from "@/app/data";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable";
+} from "@ui/resizable";
 import { cn } from "@/lib/utils";
-import { Sidebar } from "../sidebar";
+
 import { Chat } from "./chat";
+import { Sidebar } from "../navigator/sidebar-a";
 
 interface ChatLayoutProps {
   defaultLayout: number[] | undefined;
@@ -61,15 +63,11 @@ export function ChatLayout({
         maxSize={ isMobile ? 8 : 30 }
         onCollapse={ () => {
           setIsCollapsed(true);
-          document.cookie = `react-resizable-panels:collapsed=${ JSON.stringify(
-            true
-          ) }`;
+          document.cookie = `react-resizable-panels:collapsed=${ JSON.stringify(true) }`;
         } }
         onExpand={ () => {
           setIsCollapsed(false);
-          document.cookie = `react-resizable-panels:collapsed=${ JSON.stringify(
-            false
-          ) }`;
+          document.cookie = `react-resizable-panels:collapsed=${ JSON.stringify(false) }`;
         } }
         className={ cn(
           isCollapsed && "min-w-[50px] md:min-w-[70px] transition-all duration-300 ease-in-out"
@@ -83,7 +81,6 @@ export function ChatLayout({
             avatar: user.avatar,
             variant: selectedUser.name === user.name ? "grey" : "ghost",
           })) }
-          isMobile={ isMobile }
         />
       </ResizablePanel>
       <ResizableHandle withHandle />

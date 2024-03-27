@@ -1,12 +1,16 @@
 "use client";
 
 import React from 'react';
-import { ScrollArea } from '../ui/scroll-area';
-import { cn } from '@/lib/utils';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
-import { ChatList } from '../chat/chat-list';
+
+import { ScrollArea } from '@ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ui/tabs';
+
 import { Message, UserData } from '@/app/data';
+
 import ChatBottombar from '../chat/chat-bottombar';
+import { ChatList } from '../chat/chat-list';
+
+
 
 interface WorkspaceProps {
   messages?: Message[];
@@ -23,6 +27,8 @@ function Workspace({ messages, selectedUser, isMobile }: WorkspaceProps) {
     setMessages([...messagesState, newMessage]);
   };
 
+  const scrollAreaStyle = "h-[70dvh] lg:h-[60dvh] rounded-md border";
+
   return (
     <main className="flex flex-1 flex-col gap-4 p-12 lg:gap-6 lg:p-20">
       <Tabs defaultValue="chat" className="w-full">
@@ -33,7 +39,7 @@ function Workspace({ messages, selectedUser, isMobile }: WorkspaceProps) {
         </TabsList>
 
         <TabsContent value="chat">
-          <ScrollArea id="scroll-container" className={ cn("h-[70dvh] lg:h-[60dvh] rounded-md border") }>
+          <ScrollArea className={ scrollAreaStyle }>
             <ChatList
               messages={ messagesState }
               selectedUser={ selectedUser }
@@ -41,9 +47,15 @@ function Workspace({ messages, selectedUser, isMobile }: WorkspaceProps) {
           </ScrollArea>
         </TabsContent>
 
-        <TabsContent value="flow"></TabsContent>
+        <TabsContent value="flow">
+          <ScrollArea className={ scrollAreaStyle }>
+          </ScrollArea>
+        </TabsContent>
 
-        <TabsContent value="graph"></TabsContent>
+        <TabsContent value="graph">
+          <ScrollArea className={ scrollAreaStyle }>
+          </ScrollArea>
+        </TabsContent>
       </Tabs>
 
       <div className="relative h-full w-full">

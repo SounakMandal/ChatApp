@@ -26,10 +26,13 @@
         "./src/*"
       ],
       "@components/*": [
-        "./src/components"
+        "./src/components/*"
+      ],
+      "@ui/*": [
+        "./src/components/ui/*"
       ],
       "@interface/*": [
-        "./src/interface"
+        "./src/interface/*"
       ]
     }
   },

@@ -1,8 +1,11 @@
+import React, { useEffect, useRef } from "react";
+
+import { Avatar, AvatarImage } from "@ui/avatar";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { Message, UserData } from "@/app/data";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef } from "react";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import { AnimatePresence, motion } from "framer-motion";
+
 
 interface ChatListProps {
   messages?: Message[];

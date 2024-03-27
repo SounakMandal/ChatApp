@@ -1,17 +1,20 @@
 "use client";
 
 import React, { FC } from 'react';
-import NavigationObject from './NavigationObject';
-import { ModeToggle } from '@/utils/ModeToggle';
-import Link from 'next/link';
+
+import { Button } from "@ui/button";
 import { Package2 } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+
+import { ModeToggle } from '@/utils/ModeToggle';
+
+import NavigationObject from './navigation-object';
 
 interface NavigatorProps {
   headings: string[];
 }
 
-const SideNavigator: FC<NavigatorProps> = ({ headings }) => {
+const Sidebar: FC<NavigatorProps> = ({ headings }) => {
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">
       <div className="flex h-14 justify-between items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -37,4 +40,4 @@ const SideNavigator: FC<NavigatorProps> = ({ headings }) => {
   );
 };
 
-export default SideNavigator;
+export default Sidebar;
