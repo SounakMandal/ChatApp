@@ -1,20 +1,18 @@
 import React, { useEffect, useRef } from "react";
 
-import { Avatar, AvatarImage } from "@ui/avatar";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { Message, UserData } from "@/app/data";
+import { Message, loggedInUserData } from "@/app/data";
 import { cn } from "@/lib/utils";
-
+import Show from '@/utils/Show';
+import { Avatar, AvatarImage } from "@ui/avatar";
 
 interface ChatListProps {
   messages?: Message[];
-  selectedUser: UserData;
 }
 
 export function ChatList({
   messages,
-  selectedUser,
 }: ChatListProps) {
   const initialRenderRef = useRef<boolean>(true);
   const messageItemRef = useRef<HTMLDivElement>(null);
@@ -54,33 +52,35 @@ export function ChatList({
               } }
               className={ cn(
                 "flex flex-col gap-2 p-4 whitespace-pre-wrap",
-                message.name !== selectedUser.name ? "items-end" : "items-start"
+                message.name === "human" ? "items-end" : "items-start"
               ) }
             >
               <div ref={ index === messages.length - 1 ? messageItemRef : null } className="flex gap-3 items-center">
-                { message.name === selectedUser.name && (
-                  <Avatar className="flex justify-center items-center">
-                    <AvatarImage
-                      src={ message.avatar }
-                      alt={ message.name }
-                      width={ 6 }
-                      height={ 6 }
-                    />
-                  </Avatar>
-                ) }
-                <span className=" bg-accent p-3 rounded-md max-w-xs">
-                  { message.message }
-                </span>
-                { message.name !== selectedUser.name && (
-                  <Avatar className="flex justify-center items-center">
-                    <AvatarImage
-                      src={ message.avatar }
-                      alt={ message.name }
-                      width={ 6 }
-                      height={ 6 }
-                    />
-                  </Avatar>
-                ) }
+                <Show>
+                  <Show.When condition={ message.name === "human" }>
+                    <Avatar className="flex justify-center items-center">
+                      <AvatarImage
+                        src={ "" }
+                        alt={ loggedInUserData.name }
+                        width={ 6 }
+                        height={ 6 }
+                      />
+                    </Avatar>
+                    <span className=" bg-accent p-3 rounded-md max-w-xs">{ message.message }</span>
+                  </Show.When>
+
+                  <Show.Else>
+                    <span className=" bg-accent p-3 rounded-md max-w-xs">{ message.message }</span>
+                    <Avatar className="flex justify-center items-center">
+                      <AvatarImage
+                        src={ "" }
+                        alt={ "ai avatar" }
+                        width={ 6 }
+                        height={ 6 }
+                      />
+                    </Avatar>
+                  </Show.Else>
+                </Show>
               </div>
             </motion.div>
           )) }

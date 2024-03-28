@@ -1,20 +1,20 @@
-"use client";
+import React, { Dispatch, FC, SetStateAction } from 'react';
 
-import React, { FC } from 'react';
-
-import { Button } from "@ui/button";
 import { Package2 } from 'lucide-react';
 import Link from 'next/link';
 
 import { ModeToggle } from '@/utils/ModeToggle';
+import { Button } from "@ui/button";
 
 import NavigationObject from './navigation-object';
 
-interface NavigatorProps {
+interface SidebarProps {
   headings: string[];
+  activeIndex: number;
+  setActiveIndex: Dispatch<SetStateAction<number>>;
 }
 
-const Sidebar: FC<NavigatorProps> = ({ headings }) => {
+const Sidebar: FC<SidebarProps> = ({ headings, activeIndex, setActiveIndex }) => {
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">
       <div className="flex h-14 justify-between items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -31,9 +31,14 @@ const Sidebar: FC<NavigatorProps> = ({ headings }) => {
         </Button>
       </div>
 
-      <div className="flex-1">
+      <div className="flex flex-col gap-1">
         { headings.map((heading, index) =>
-          <NavigationObject key={ index } text={ heading } />
+          <NavigationObject
+            key={ index }
+            text={ heading }
+            active={ index === activeIndex }
+            onClick={ () => setActiveIndex(index) }
+          />
         ) }
       </div>
     </div>

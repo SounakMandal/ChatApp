@@ -1,27 +1,29 @@
-'use client';
+import { useState } from 'react';
 
-import { useRef, useState } from 'react';
-
-import { Input } from '@ui/input';
-import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarTrigger } from '@ui/menubar';
-import { ArchiveIcon, CheckIcon, EditIcon, EllipsisIcon, FolderIcon, FolderOpenIcon, ShareIcon, SquarePen, XIcon } from 'lucide-react';
+import { ArchiveIcon, EditIcon, EllipsisIcon, FolderIcon, FolderOpenIcon, ShareIcon } from 'lucide-react';
 
 import Show from '@/utils/Show';
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@ui/menubar';
 
 import EditChat from './edit';
 
 interface NavigationObjectProps {
   text: string;
+  active: boolean;
+  onClick: any;
 }
 
 const centerItemsWithFlex = "flex flex-row gap-4 items-center";
 
-function NavigationObject({ text }: NavigationObjectProps) {
+function NavigationObject({ text, active, onClick }: NavigationObjectProps) {
   const [displayFileNavigator, setDisplayFileNavigator] = useState(false);
   const [userEditedValue, setUserEditedValue] = useState(text);
 
+  const sidebarStyle = "grid grid-cols-12 items-start px-2 text-sm font-medium lg:px-4 p-2 m-1 max-w-[25vw] border-solid border-4 rounded-lg hover:cursor-pointer";
+  const activeStyle = "bg-background";
   return (
-    <div className="grid grid-cols-12 items-start px-2 text-sm font-medium lg:px-4 p-2 m-1 max-w-[25vw] border-solid border-4 rounded-md">
+    <div onClick={ onClick }
+      className={ active ? `${ sidebarStyle } ${ activeStyle }` : sidebarStyle }>
       <div className="col-span-2">
         <Show>
           <Show.When condition={ displayFileNavigator }>

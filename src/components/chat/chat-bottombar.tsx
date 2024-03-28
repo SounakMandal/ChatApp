@@ -1,8 +1,5 @@
 import React, { useRef, useState } from "react";
 
-import { buttonVariants } from "@ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@ui/popover";
-import { Textarea } from "@ui/textarea";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   FileImage,
@@ -14,9 +11,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import { Message, loggedInUserData } from "@/app/data";
+import { Message } from "@/app/data";
 import { cn } from "@/lib/utils";
 import Show from '@/utils/Show';
+import { buttonVariants } from "@ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@ui/popover";
+import { Textarea } from "@ui/textarea";
 
 import { EmojiPicker } from "./emoji-picker";
 
@@ -41,8 +41,7 @@ export default function ChatBottombar({
   const handleThumbsUp = () => {
     const newMessage: Message = {
       id: message.length + 1,
-      name: loggedInUserData.name,
-      avatar: loggedInUserData.avatar,
+      name: "human",
       message: "👍",
     };
     sendMessage(newMessage);
@@ -53,8 +52,7 @@ export default function ChatBottombar({
     if (message.trim()) {
       const newMessage: Message = {
         id: message.length + 1,
-        name: loggedInUserData.name,
-        avatar: loggedInUserData.avatar,
+        name: "human",
         message: message.trim(),
       };
       sendMessage(newMessage);
