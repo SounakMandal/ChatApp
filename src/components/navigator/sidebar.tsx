@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 import { Package2 } from 'lucide-react';
 import Link from 'next/link';
@@ -14,7 +14,10 @@ interface SidebarProps {
   setActiveIndex: Dispatch<SetStateAction<number>>;
 }
 
-const Sidebar: FC<SidebarProps> = ({ headings, activeIndex, setActiveIndex }) => {
+export default function Sidebar({
+  headings,
+  activeIndex, setActiveIndex,
+}: SidebarProps) {
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">
       <div className="flex h-14 justify-between items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -31,7 +34,7 @@ const Sidebar: FC<SidebarProps> = ({ headings, activeIndex, setActiveIndex }) =>
         </Button>
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 items-stretch m-2">
         { headings.map((heading, index) =>
           <NavigationObject
             key={ index }
@@ -44,5 +47,3 @@ const Sidebar: FC<SidebarProps> = ({ headings, activeIndex, setActiveIndex }) =>
     </div>
   );
 };
-
-export default Sidebar;

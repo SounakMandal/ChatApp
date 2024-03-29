@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 
+import { cn } from "@lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { Message, loggedInUserData } from "@/app/data";
-import { cn } from "@/lib/utils";
 import Show from '@/utils/Show';
-import { Avatar, AvatarImage } from "@ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
 
 interface ChatListProps {
   messages?: Message[];
@@ -58,6 +58,7 @@ export function ChatList({
               <div ref={ index === messages.length - 1 ? messageItemRef : null } className="flex gap-3 items-center">
                 <Show>
                   <Show.When condition={ message.name === "human" }>
+                    <div className=" bg-accent p-3 rounded-md max-w-xs">{ message.message }</div>
                     <Avatar className="flex justify-center items-center">
                       <AvatarImage
                         src={ "" }
@@ -65,12 +66,11 @@ export function ChatList({
                         width={ 6 }
                         height={ 6 }
                       />
+                      <AvatarFallback>{ loggedInUserData.name[0] }</AvatarFallback>
                     </Avatar>
-                    <span className=" bg-accent p-3 rounded-md max-w-xs">{ message.message }</span>
                   </Show.When>
 
                   <Show.Else>
-                    <span className=" bg-accent p-3 rounded-md max-w-xs">{ message.message }</span>
                     <Avatar className="flex justify-center items-center">
                       <AvatarImage
                         src={ "" }
@@ -78,7 +78,9 @@ export function ChatList({
                         width={ 6 }
                         height={ 6 }
                       />
+                      <AvatarFallback>AI</AvatarFallback>
                     </Avatar>
+                    <div className=" bg-accent p-3 rounded-md max-w-xs">{ message.message }</div>
                   </Show.Else>
                 </Show>
               </div>

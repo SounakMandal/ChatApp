@@ -19,7 +19,7 @@ function NavigationObject({ text, active, onClick }: NavigationObjectProps) {
   const [displayFileNavigator, setDisplayFileNavigator] = useState(false);
   const [userEditedValue, setUserEditedValue] = useState(text);
 
-  const sidebarStyle = "grid grid-cols-12 items-start px-2 text-sm font-medium lg:px-4 p-2 m-1 max-w-[25vw] border-solid border-4 rounded-lg hover:cursor-pointer";
+  const sidebarStyle = "grid grid-cols-12 items-start px-2 text-sm font-medium lg:px-4 p-2 m-1 border-solid border-4 rounded-lg hover:cursor-pointer";
   const activeStyle = "bg-background";
   return (
     <div onClick={ onClick }

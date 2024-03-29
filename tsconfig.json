@@ -33,6 +33,9 @@
       ],
       "@interface/*": [
         "./src/interface/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
       ]
     }
   },
