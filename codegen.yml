@@ -1,0 +1,8 @@
+overwrite: true
+schema: src/data/schema.graphql
+documents: src/data/*.graphql
+generates:
+  src/interface/data.ts:
+    plugins:
+      - typescript
+      - typescript-operations

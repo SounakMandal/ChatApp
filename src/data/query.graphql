@@ -1,0 +1,21 @@
+query GetUserChats($userId: String) {
+  chats(userId: $userId) {
+    title
+    groups {
+      title
+    }
+  }
+}
+
+query GetUserChatGroupById($groupId: String) {
+  group(groupId: $groupId) {
+    messages {
+      ...MessageFields
+    }
+  }
+}
+
+fragment MessageFields on Message {
+  name
+  message
+}

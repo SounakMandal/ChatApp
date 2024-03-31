@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@apollo/client": "^3.9.9",
         "@emoji-mart/data": "^1.1.2",
         "@emoji-mart/react": "^1.1.1",
         "@radix-ui/react-avatar": "^1.0.4",
@@ -23,17 +24,24 @@
         "@radix-ui/react-tooltip": "^1.0.7",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
+        "dagre": "^0.8.5",
         "framer-motion": "^11.0.22",
+        "graphql-tag": "^2.12.6",
         "lucide-react": "^0.363.0",
         "next": "14.1.4",
         "next-themes": "^0.3.0",
         "react": "^18",
         "react-dom": "^18",
         "react-resizable-panels": "^2.0.16",
+        "reactflow": "^11.10.4",
         "tailwind-merge": "^2.2.2",
         "tailwindcss-animate": "^1.0.7"
     },
     "devDependencies": {
+        "@graphql-codegen/cli": "^5.0.2",
+        "@graphql-codegen/typescript": "^4.0.6",
+        "@graphql-codegen/typescript-operations": "^4.2.0",
+        "@types/dagre": "^0.7.52",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",

@@ -1,6 +1,7 @@
+import { randomUUID } from 'crypto';
+
 import React, { useRef, useState } from "react";
 
-import { cn } from "@lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   FileImage,
@@ -12,17 +13,17 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import { Message } from "@/app/data";
+import { Chat } from '@/interface/data';
 import Show from '@/utils/Show';
+import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@ui/popover";
 import { Textarea } from "@ui/textarea";
 
 import { EmojiPicker } from "./emoji-picker";
 
-
 interface ChatBottombarProps {
-  sendMessage: (newMessage: Message) => void;
+  sendMessage: (newMessage: Chat) => void;
   isMobile: boolean;
 }
 
@@ -39,8 +40,8 @@ export default function ChatBottombar({
   };
 
   const handleThumbsUp = () => {
-    const newMessage: Message = {
-      id: message.length + 1,
+    const newMessage: Chat = {
+      id: randomUUID(),
       name: "human",
       message: "👍",
     };
@@ -50,8 +51,8 @@ export default function ChatBottombar({
 
   const handleSend = () => {
     if (message.trim()) {
-      const newMessage: Message = {
-        id: message.length + 1,
+      const newMessage: Chat = {
+        id: randomUUID(),
         name: "human",
         message: message.trim(),
       };

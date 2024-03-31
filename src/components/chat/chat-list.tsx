@@ -1,15 +1,18 @@
 import React, { useEffect, useRef } from "react";
 
-import { cn } from "@lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { Message, loggedInUserData } from "@/app/data";
+import { Message } from '@/interface/data';
 import Show from '@/utils/Show';
+import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
 
 interface ChatListProps {
   messages?: Message[];
 }
+
+const avatarStyle = "flex justify-center items-center";
+const messageStyle = "bg-accent p-3 rounded-md max-w-[90%]";
 
 export function ChatList({
   messages,
@@ -52,26 +55,13 @@ export function ChatList({
               } }
               className={ cn(
                 "flex flex-col gap-2 p-4 whitespace-pre-wrap",
-                message.name === "human" ? "items-end" : "items-start"
+                message.name === "ai" ? "items-start" : "items-end"
               ) }
             >
-              <div ref={ index === messages.length - 1 ? messageItemRef : null } className="flex gap-3 items-center">
+              <div ref={ index === messages.length - 1 ? messageItemRef : null } className="flex gap-3 items-start">
                 <Show>
-                  <Show.When condition={ message.name === "human" }>
-                    <div className=" bg-accent p-3 rounded-md max-w-xs">{ message.message }</div>
-                    <Avatar className="flex justify-center items-center">
-                      <AvatarImage
-                        src={ "" }
-                        alt={ loggedInUserData.name }
-                        width={ 6 }
-                        height={ 6 }
-                      />
-                      <AvatarFallback>{ loggedInUserData.name[0] }</AvatarFallback>
-                    </Avatar>
-                  </Show.When>
-
-                  <Show.Else>
-                    <Avatar className="flex justify-center items-center">
+                  <Show.When condition={ message.name === "ai" }>
+                    <Avatar className={ avatarStyle }>
                       <AvatarImage
                         src={ "" }
                         alt={ "ai avatar" }
@@ -80,7 +70,20 @@ export function ChatList({
                       />
                       <AvatarFallback>AI</AvatarFallback>
                     </Avatar>
-                    <div className=" bg-accent p-3 rounded-md max-w-xs">{ message.message }</div>
+                    <div className={ messageStyle }>{ message.message }</div>
+                  </Show.When>
+
+                  <Show.Else>
+                    <div className={ messageStyle }>{ message.message }</div>
+                    <Avatar className={ avatarStyle }>
+                      <AvatarImage
+                        src={ "" }
+                        alt={ message.name }
+                        width={ 6 }
+                        height={ 6 }
+                      />
+                      <AvatarFallback>{ message.name[0] }</AvatarFallback>
+                    </Avatar>
                   </Show.Else>
                 </Show>
               </div>

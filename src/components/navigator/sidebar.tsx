@@ -10,13 +10,13 @@ import NavigationObject from './navigation-object';
 
 interface SidebarProps {
   headings: string[];
-  activeIndex: number;
-  setActiveIndex: Dispatch<SetStateAction<number>>;
+  activeChat: number;
+  setActiveChat: Dispatch<SetStateAction<number>>;
 }
 
 export default function Sidebar({
   headings,
-  activeIndex, setActiveIndex,
+  activeChat, setActiveChat,
 }: SidebarProps) {
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">
@@ -39,8 +39,8 @@ export default function Sidebar({
           <NavigationObject
             key={ index }
             text={ heading }
-            active={ index === activeIndex }
-            onClick={ () => setActiveIndex(index) }
+            active={ index === activeChat }
+            onClick={ () => setActiveChat(index) }
           />
         ) }
       </div>

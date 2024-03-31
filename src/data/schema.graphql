@@ -1,0 +1,34 @@
+type Message {
+  id: String!
+  name: String!
+  message: String!
+}
+
+type Group {
+  id: String!
+  instruction: String
+  title: String
+  context: String
+  entities: [String]
+  messages: [Message]
+}
+
+type ChatHistory {
+  id: String!
+  title: String!
+  groups: [Group]!
+}
+
+type User {
+  id: String!
+  name: String!
+  instruction: String
+  chats: [String]
+}
+
+type Query {
+  chat: ChatHistory
+  chats(userId: String): [ChatHistory]
+  group(groupId: String): Group
+  groups: [Group]
+}
