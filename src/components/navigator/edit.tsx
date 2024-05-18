@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { Dispatch, PropsWithChildren, SetStateAction, useState } from 'react';
 
 import { Button } from "@ui/button";
 import {
@@ -14,11 +14,16 @@ import { Input } from "@ui/input";
 import { Label } from "@ui/label";
 import { Textarea } from '@ui/textarea';
 
-export default function EditChat({ children }: PropsWithChildren) {
+interface EditChatProps extends PropsWithChildren {
+  setUserEditedValue: Dispatch<SetStateAction<string>>;
+}
+
+export default function EditChat({ setUserEditedValue, children }: EditChatProps) {
   const [open, setOpen] = useState(false);
 
   const handleSaveChanges = () => {
     setOpen(false);
+    setUserEditedValue("");
   };
 
   return (

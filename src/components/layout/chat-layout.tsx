@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
 
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
-import chat from "@/data/chat_javascript.json";
+import { useChat } from '@/context/chat_context';
+import { getAllTitles } from '@/data/messages';
+import { useCookie } from '@/hooks/cookie';
 import Sidebar from '@components/navigator/sidebar';
 import Workspace from '@components/workspace/workspace';
 import { cn } from '@lib/utils';
 
+import NavigationObject from '../navigator/navigation-object';
+
 const defaultLayout = [25, 75];
 
 export default function ChatLayout() {
-  const [activeChat, setActiveChat] = useState(0);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { activeChat } = useChat();
+  const { setCookie: setPanel } = useCookie('react-resizable-panels:layout');
+  const { setCookie: setCollapsedState } = useCookie('react-resizable-panels:collapsed');
   const [isMobile, setIsMobile] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     const checkScreenWidth = () => {
@@ -28,11 +34,7 @@ export default function ChatLayout() {
   return (
     <ResizablePanelGroup
       direction="horizontal"
-      onLayout={ (sizes: number[]) => {
-        document.cookie = `react-resizable-panels:layout=${ JSON.stringify(
-          sizes
-        ) }`;
-      } }
+      onLayout={ (sizes: number[]) => setPanel(sizes) }
       className="min-h-screen h-full items-stretch"
     >
       <ResizablePanel
@@ -43,22 +45,30 @@ export default function ChatLayout() {
         maxSize={ isMobile ? 8 : 30 }
         onCollapse={ () => {
           setIsCollapsed(true);
-          document.cookie = `react-resizable-panels:collapsed=${ JSON.stringify(true) }`;
+          setCollapsedState(true);
         } }
         onExpand={ () => {
           setIsCollapsed(false);
-          document.cookie = `react-resizable-panels:collapsed=${ JSON.stringify(false) }`;
+          setCollapsedState(false);
         } }
         className={ cn(
           isCollapsed && " min-w-[50px] md:min-w-[70px] transition-all duration-300 ease-in-out"
         ) }
       >
         <div className="h-full hidden border-r md:block bg-accent/60">
-          <Sidebar
-            headings={ [chat["title"]] }
-            activeChat={ activeChat }
-            setActiveChat={ setActiveChat }
-          />
+          <Sidebar>
+            <div className="flex flex-col gap-1 items-stretch m-2">
+              { getAllTitles().map((heading, index) =>
+                <NavigationObject
+                  key={ index }
+                  chatIndex={ index }
+                  groupIndex={ 0 }
+                  text={ heading }
+                  active={ index === activeChat }
+                />
+              ) }
+            </div>
+          </Sidebar>
         </div>
       </ResizablePanel>
 
@@ -66,12 +76,7 @@ export default function ChatLayout() {
 
       <ResizablePanel defaultSize={ defaultLayout[1] } minSize={ 30 }>
         <div className="flex flex-col h-full">
-          <Workspace
-            messages={ chat["groups"][0]["messages"] }
-            titles={ chat["title"] }
-            subtitles={ chat["groups"].map(chatGroup => chatGroup.title) }
-            isMobile={ isMobile }
-          />
+          <Workspace isMobile={ isMobile } />
         </div>
       </ResizablePanel>
     </ResizablePanelGroup>

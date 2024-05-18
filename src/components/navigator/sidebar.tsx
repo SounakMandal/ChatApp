@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { Package2 } from 'lucide-react';
 import Link from 'next/link';
@@ -6,17 +6,12 @@ import Link from 'next/link';
 import { ModeToggle } from '@/utils/ModeToggle';
 import { Button } from "@ui/button";
 
-import NavigationObject from './navigation-object';
+interface SidebarProps extends PropsWithChildren {
 
-interface SidebarProps {
-  headings: string[];
-  activeChat: number;
-  setActiveChat: Dispatch<SetStateAction<number>>;
 }
 
 export default function Sidebar({
-  headings,
-  activeChat, setActiveChat,
+  children
 }: SidebarProps) {
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">
@@ -34,16 +29,7 @@ export default function Sidebar({
         </Button>
       </div>
 
-      <div className="flex flex-col gap-1 items-stretch m-2">
-        { headings.map((heading, index) =>
-          <NavigationObject
-            key={ index }
-            text={ heading }
-            active={ index === activeChat }
-            onClick={ () => setActiveChat(index) }
-          />
-        ) }
-      </div>
+      { children }
     </div>
   );
 };
